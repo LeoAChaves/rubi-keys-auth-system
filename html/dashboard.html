@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUBI Keys - Dashboard</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/buttons-style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="container">
+      <main>
+        <div id="imagens">
+          <img
+            src="../images/RobCollectionHello.png"
+            alt="Imagem de robô sorrindo"
+            id="logoRobo"
+          />
+        </div>
+        <div id="divForm">
+          <h3 class="balaoConversa" id="welcomeMessage">
+            🤖 Bem-vindo(a) à RUBI Keys! Seu acesso foi autorizado com sucesso.
+          </h3>
+
+          <div class="dashboard-content">
+            <div class="user-info">
+              <h2>📊 Painel de Controle</h2>
+              <div class="info-card">
+                <p>
+                  <strong>👤 Usuário:</strong>
+                  <span id="userName">Carregando...</span>
+                </p>
+                <p>
+                  <strong>📧 Email:</strong>
+                  <span id="userEmail">Carregando...</span>
+                </p>
+                <p>
+                  <strong>🔐 Status:</strong>
+                  <span class="status-badge">✅ Logado</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="dashboard-actions">
+              <div class="action-card">
+                <h3>🔑 Suas Chaves</h3>
+                <p>Gerencie suas chaves de acesso RUBI</p>
+                <button
+                  class="btn-action"
+                  onclick="alert('Funcionalidade em desenvolvimento')"
+                >
+                  🗝️ Ver minhas chaves
+                </button>
+              </div>
+
+              <div class="action-card">
+                <h3>📝 Perfil</h3>
+                <p>Atualize suas informações pessoais</p>
+                <button
+                  class="btn-action"
+                  onclick="alert('Funcionalidade em desenvolvimento')"
+                >
+                  ✏️ Editar perfil
+                </button>
+              </div>
+
+              <div class="action-card">
+                <h3>🔒 Segurança</h3>
+                <p>Configure a segurança da sua conta</p>
+                <button
+                  class="btn-action"
+                  onclick="alert('Funcionalidade em desenvolvimento')"
+                >
+                  🛡️ Configurações
+                </button>
+              </div>
+            </div>
+
+            <div class="logout-container">
+              <button id="logoutBtn" class="btn-danger">
+                🚪 Sair / Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div id="containerDireita">
+      <a href="../index.html">
+        <img alt="rubikeys logo" src="../images/rubikeys.png" id="rubikeys" />
+      </a>
+    </div>
+
+    <script src="../js/validation.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+      // Funções específicas do dashboard
+      function loadUserData() {
+        const user = localStorage.getItem("user");
+        if (user) {
+          const userData = JSON.parse(user);
+          document.getElementById("userName").textContent =
+            userData.username || "Usuário";
+          document.getElementById("userEmail").textContent =
+            userData.email || "Email não disponível";
+
+          // Personalizar mensagem de boas-vindas
+          const welcomeMsg = document.getElementById("welcomeMessage");
+          if (welcomeMsg && userData.username) {
+            welcomeMsg.innerHTML = `🤖 Olá, ${userData.username}! Bem-vindo(a) à RUBI Keys. Seu acesso foi autorizado com sucesso.`;
+          }
+        }
+      }
+
+      function setupLogout() {
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", () => {
+            // Limpar dados do localStorage
+            localStorage.removeItem("user");
+            // Mostrar mensagem
+            alert("Logout realizado com sucesso!");
+            // Redirecionar para o login
+            window.location.href = "./login.html";
+          });
+        }
+      }
+
+      // Verificar se usuário está logado
+      function checkAuth() {
+        const user = localStorage.getItem("user");
+        if (!user) {
+          window.location.href = "./login.html";
+        }
+      }
+
+      // Inicializar página
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAuth();
+        loadUserData();
+        setupLogout();
+      });
+    </script>
+  </body>
+</html>

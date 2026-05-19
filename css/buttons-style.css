@@ -1,0 +1,153 @@
+/* Reset para todos os botões e links tipo botão */
+button[type="submit"],
+.btn-action,
+.btn-index {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-family: "K2D", serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  min-width: 130px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: auto;
+  margin-top: 0;
+}
+
+button[type="submit"]:hover,
+.btn-action:hover,
+.btn-index:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+/* Botão primário - AZUL (Login/Enviar código) */
+
+.btn-primary,
+.btn-login,
+.btn-send {
+  background-color: #3360ff;
+}
+
+.btn-primary:hover,
+.btn-login:hover,
+.btn-send:hover {
+  background-color: #2548c9;
+}
+
+/* Botão secundário - LARANJA (Cadastro/Registrar/Alterar senha) */
+.btn-secondary,
+.btn-register,
+.btn-change {
+  background-color: #ff5529;
+}
+
+.btn-secondary:hover,
+.btn-register:hover,
+.btn-change:hover {
+  background-color: #e04a22;
+}
+
+/* Botão amarelo - Esqueci a senha */
+.btn-forgot {
+  background-color: #ffc107;
+  color: #1a1a1a;
+}
+
+.btn-forgot:hover {
+  background-color: #e0a800;
+  color: #1a1a1a;
+}
+
+/* Botão azul claro - Voltar ao Login */
+.btn-back {
+  background-color: #5dade2;
+}
+
+.btn-back:hover {
+  background-color: #3498db;
+}
+
+/* Grupo de botões lado a lado */
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.button-group button,
+.button-group .btn-action {
+  margin: 0;
+}
+
+/* Botões da página inicial */
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+#submit {
+  margin-top: 10px;
+}
+
+/* Ajustes de espaçamento */
+#divForm .balaoConversa {
+  margin-bottom: 10px;
+}
+
+#creditos {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #cccccc;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  button[type="submit"],
+  .btn-action,
+  .btn-index {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    min-width: 110px;
+  }
+
+  .button-group,
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .button-group .btn-action,
+  .button-group button,
+  .action-buttons .btn-index {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  button[type="submit"],
+  .btn-action,
+  .btn-index {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+}

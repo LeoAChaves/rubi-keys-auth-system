@@ -1,0 +1,370 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "K2D", serif;
+  font-size: 17px;
+}
+
+body,
+html {
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #ff5529;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  color: #3360ff;
+}
+
+h3 {
+  padding-left: 15px;
+}
+
+body {
+  background: url("../images/funnyBackground\ 1.png");
+  background-position: top left;
+  background-size: calc(100% - 200px) 100%;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#container,
+#containerDireita {
+  position: static;
+}
+
+#rubikeys {
+  width: 150px;
+  margin-top: 0;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  border-radius: 20px;
+}
+
+.balaoConversa {
+  margin: 0px 20px;
+  background-color: #d9d9d9;
+  color: black;
+  border-radius: 25px;
+  width: auto;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+#container {
+  background-size: 83%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  padding: 50px;
+}
+
+#imagens {
+  display: flex;
+  flex-direction: column;
+  width: 13%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+p {
+  font-size: 14px;
+}
+
+#logoRobo {
+  width: 100%;
+}
+
+#divForm {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  align-items: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  width: 95%;
+}
+
+label {
+  padding: 5px;
+  width: 80%;
+}
+
+input {
+  font-size: 15px;
+  border-radius: 15px;
+  height: 15px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+#cadastroUsuario {
+  margin: 10px;
+  width: 80%;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #696969;
+  color: white;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #535353;
+  cursor: pointer;
+}
+
+/*Responsividade */
+
+/* Media Query para telas de até 768px de largura */
+@media (max-width: 768px) {
+  p,
+  .balaoConversa,
+  label,
+  button {
+    font-size: 18px;
+  }
+
+  body {
+    display: flex;
+    background-size: 100%;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+  }
+
+  #logoRobo {
+    width: 100px;
+  }
+
+  #rubikeys {
+    width: 150px; /* Ajustar a largura da logo */
+  }
+
+  main {
+    flex-direction: column; /* Muda a direção do flex para coluna */
+    width: 100%; /* Ajusta a largura para dar mais espaço nas bordas */
+    height: 70%;
+    top: 0;
+    left: 0;
+    border-radius: 0px;
+    transform: none; /* Remover a transformação pois não é mais necessário */
+    position: relative; /* Ou 'fixed' se você ainda quer que fique fixo */
+    margin-top: 10px; /* Adiciona uma margem no topo para não sobrepor a logo */
+  }
+
+  #imagens {
+    width: 100%; /* Ajustar a largura para dispositivos móveis */
+  }
+
+  #cadastroOAuth {
+    position: static; /* Retorna para o fluxo normal do documento */
+    margin-top: 20px; /* Adicionar um pouco de espaço acima */
+  }
+
+  #logoGoogle {
+    width: 30%; /* Ajusta a largura da logo do Google */
+  }
+
+  #divForm,
+  form {
+    width: 100%; /* Ajustar a largura do formulário */
+    margin-left: 0; /* Remover margem lateral */
+  }
+
+  input,
+  button {
+    font-size: 18px; /* Reduzir o tamanho da fonte para os inputs e botões */
+    width: 90%; /* Ajustar a largura para dar espaço ao redor */
+  }
+
+  button {
+    width: 80%; /* Aumentar a largura do botão para facilitar a interação */
+  }
+}
+
+/* Mensagens de feedback */
+.message {
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para validação de formulário */
+.invalid {
+  border-color: #f44336 !important;
+  background-color: #ffebee !important;
+}
+
+.field-error {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.field-error small {
+  color: #f44336;
+  font-size: 12px;
+  display: block;
+}
+
+/* Indicador de força da senha */
+.password-strength-container {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.password-strength-bar {
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.password-strength-indicator {
+  height: 100%;
+  width: 0%;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+.password-feedback {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+  display: none;
+}
+
+/* Animações para feedback */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.invalid {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Container da senha - garantir que o campo de senha tenha posicionamento relativo */
+.inputs {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Container da barra de força */
+.password-strength-container {
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+/* Barra de força */
+.password-strength-bar {
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.password-strength-indicator {
+  height: 100%;
+  width: 0%;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+/* Feedback da senha */
+.password-feedback {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Estilos de erro */
+.invalid {
+  border-color: #f44336 !important;
+  background-color: #ffebee !important;
+}
+
+.field-error {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.field-error small {
+  color: #f44336;
+  font-size: 12px;
+  display: block;
+}
