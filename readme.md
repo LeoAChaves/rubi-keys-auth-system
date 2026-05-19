@@ -43,7 +43,7 @@ RUBI Keys é um sistema completo de autenticação de usuários desenvolvido com
 ## 📁 Estrutura do Projeto
 
 ```
-rubi-keys/
+rubi-keys-auth-system/
 ├── index.html                 # Dashboard principal
 ├── login.html                 # Página de login
 ├── register.html              # Página de registro
@@ -86,8 +86,8 @@ rubi-keys/
 #### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/LeoAChaves/Login_Authentication.git
-cd Login_Authentication
+git clone https://github.com/LeoAChaves/rubi-keys-auth-system.git
+cd rubi-keys-auth-system
 ```
 
 #### 2. Configure o ambiente de desenvolvimento
@@ -164,7 +164,7 @@ chmod -R 777 php/error_log
 Abra o navegador e acesse:
 
 ```
-http://localhost/Login_Authentication/index.html
+http://localhost/rubi-keys-auth-system/index.html
 ```
 
 ## 💻 Uso do Sistema
