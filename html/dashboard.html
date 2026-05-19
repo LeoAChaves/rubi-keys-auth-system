@@ -38,6 +38,17 @@
               <div class="status-container">
                 <span class="status-badge">✅ Logado</span>
               </div>
+              <!-- Adicionando elementos para exibir dados do usuário -->
+              <div id="userDetails">
+                <p>
+                  <strong>👤 Nome:</strong>
+                  <span id="userName">Carregando...</span>
+                </p>
+                <p>
+                  <strong>📧 Email:</strong>
+                  <span id="userEmail">Carregando...</span>
+                </p>
+              </div>
             </div>
 
             <div class="dashboard-actions">
@@ -104,53 +115,6 @@
     <script src="../js/validation.js"></script>
     <script src="../js/api.js"></script>
     <script src="../js/auth.js"></script>
-    <script>
-      // Funções específicas do dashboard
-      function loadUserData() {
-        const user = localStorage.getItem("user");
-        if (user) {
-          const userData = JSON.parse(user);
-          document.getElementById("userName").textContent =
-            userData.username || "Usuário";
-          document.getElementById("userEmail").textContent =
-            userData.email || "Email não disponível";
-
-          // Personalizar mensagem de boas-vindas
-          const welcomeMsg = document.getElementById("welcomeMessage");
-          if (welcomeMsg && userData.username) {
-            welcomeMsg.innerHTML = `🤖 Olá, ${userData.username}! Bem-vindo(a) à RUBI Keys. Seu acesso foi autorizado com sucesso.`;
-          }
-        }
-      }
-
-      function setupLogout() {
-        const logoutBtn = document.getElementById("logoutBtn");
-        if (logoutBtn) {
-          logoutBtn.addEventListener("click", () => {
-            // Limpar dados do localStorage
-            localStorage.removeItem("user");
-            // Mostrar mensagem
-            alert("Logout realizado com sucesso!");
-            // Redirecionar para o login
-            window.location.href = "./login.html";
-          });
-        }
-      }
-
-      // Verificar se usuário está logado
-      function checkAuth() {
-        const user = localStorage.getItem("user");
-        if (!user) {
-          window.location.href = "./login.html";
-        }
-      }
-
-      // Inicializar página
-      document.addEventListener("DOMContentLoaded", () => {
-        checkAuth();
-        loadUserData();
-        setupLogout();
-      });
-    </script>
+    <script src="../js/dashboard.js"></script>
   </body>
 </html>

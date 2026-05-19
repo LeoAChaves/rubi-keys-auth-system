@@ -48,6 +48,17 @@ body {
   border-radius: 20px;
 }
 
+/* Estilo para o cursor do link de login */
+#loginLink {
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Estilo adicional para feedback visual */
+.btn-login:active {
+  transform: scale(0.98);
+}
+
 .balaoConversa {
   margin: 0px 20px;
   background-color: #d9d9d9;
