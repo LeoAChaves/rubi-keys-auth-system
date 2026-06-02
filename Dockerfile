@@ -1,23 +1,25 @@
 FROM php:7.4-apache
 
-# Instalar extensões PDO e MySQL
+# Instalar extensões
 RUN docker-php-ext-install pdo_mysql mysqli
 
-# Habilitar mod_rewrite (para rotas bonitas)
-RUN a2enmod rewrite
+# Remover todos os MPMs e instalar apenas o prefork
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    a2dismod mpm_event mpm_worker || true && \
+    a2enmod mpm_prefork rewrite
 
-# Configurar diretório do projeto
+# Configurar o Apache para usar o prefork
+RUN echo "LoadModule mpm_prefork_module modules/mod_mpm_prefork.so" > /etc/apache2/mods-enabled/mpm_prefork.load && \
+    echo "<IfModule mpm_prefork_module>\n\tStartServers 1\n\tMinSpareServers 1\n\tMaxSpareServers 3\n\tMaxRequestWorkers 10\n\tMaxConnectionsPerChild 1000\n</IfModule>" > /etc/apache2/mods-available/mpm_prefork.conf
+
 WORKDIR /var/www/html
 
-# Copiar todos os arquivos
 COPY . /var/www/html/
 
-# Dar permissões
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
 
-# Expor porta 80 (Railway usa a variável PORT)
 EXPOSE 80
 
-# Usar porta do Railway ou 80
-CMD ["sh", "-c", "apache2-foreground"]
+CMD ["apache2-foreground"]
