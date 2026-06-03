@@ -1,45 +1,32 @@
 <?php
 class Database {
-    // Usando variáveis de ambiente do Railway
-    private $host;
-    private $db_name;
-    private $username;
-    private $password;
     private $conn;
-
-    public function __construct() {
-        // Railway fornece estas variáveis automaticamente
-        $this->host = getenv('MYSQL_HOST') ?: getenv('DB_HOST') ?: 'localhost';
-        $this->db_name = getenv('MYSQL_DATABASE') ?: getenv('DB_DATABASE') ?: 'rubi_keys';
-        $this->username = getenv('MYSQL_USER') ?: getenv('DB_USERNAME') ?: 'root';
-        $this->password = getenv('MYSQL_PASSWORD') ?: getenv('DB_PASSWORD') ?: '';
-        
-        // Para Railway MySQL específico
-        if (getenv('MYSQL_URL')) {
-            $url = parse_url(getenv('MYSQL_URL'));
-            $this->host = $url['host'];
-            $this->username = $url['user'];
-            $this->password = $url['pass'];
-            $this->db_name = ltrim($url['path'], '/');
-        }
-    }
 
     public function getConnection() {
         $this->conn = null;
+        
+        // Usando as variáveis do Railway MySQL
+        $host = getenv('MYSQLHOST') ?: getenv('MYSQL_HOST') ?: 'localhost';
+        $port = getenv('MYSQLPORT') ?: getenv('MYSQL_PORT') ?: '3306';
+        $dbname = getenv('MYSQLDATABASE') ?: getenv('MYSQL_DATABASE') ?: 'railway';
+        $user = getenv('MYSQLUSER') ?: getenv('MYSQL_USER') ?: 'root';
+        $password = getenv('MYSQLPASSWORD') ?: getenv('MYSQL_PASSWORD') ?: '';
+        
         try {
             $this->conn = new PDO(
-                "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=utf8",
-                $this->username,
-                $this->password
+                "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8",
+                $user,
+                $password
             );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->exec("set names utf8");
+            
         } catch(PDOException $e) {
-            // Retornar erro como JSON (não apenas echo)
+            error_log("Database error: " . $e->getMessage());
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false, 
-                'message' => 'Erro de conexão com o banco de dados: ' . $e->getMessage()
+                'message' => 'Erro de conexão com o banco de dados'
             ]);
             exit;
         }
