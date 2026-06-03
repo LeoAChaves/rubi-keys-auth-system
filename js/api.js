@@ -1,6 +1,13 @@
 class API {
   static async request(endpoint, method = "GET", data = null) {
-    const url = `../php/api/${endpoint}.php`;
+    // URL absoluta baseada no caminho atual
+    const basePath =
+      window.location.pathname.substring(
+        0,
+        window.location.pathname.lastIndexOf("/"),
+      ) + "/";
+    const url = `${basePath}php/api/${endpoint}.php`;
+
     const options = {
       method: method,
       headers: {
@@ -14,6 +21,17 @@ class API {
 
     try {
       const response = await fetch(url, options);
+
+      // Verificar se a resposta é JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("Resposta não é JSON:", text.substring(0, 200));
+        throw new Error(
+          "Servidor retornou uma resposta inválida. Verifique a conexão.",
+        );
+      }
+
       const result = await response.json();
 
       if (!response.ok) {
