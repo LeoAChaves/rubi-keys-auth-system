@@ -1,12 +1,9 @@
 class API {
   static async request(endpoint, method = "GET", data = null) {
-    // URL absoluta baseada no caminho atual
-    const basePath =
-      window.location.pathname.substring(
-        0,
-        window.location.pathname.lastIndexOf("/"),
-      ) + "/";
-    const url = `${basePath}php/api/${endpoint}.php`;
+    // Caminho absoluto para o Railway
+    const url = `/php/api/${endpoint}.php`;
+
+    console.log(`API Request: ${method} ${url}`); // Debug
 
     const options = {
       method: method,
@@ -22,22 +19,20 @@ class API {
     try {
       const response = await fetch(url, options);
 
-      // Verificar se a resposta é JSON
+      if (!response.ok) {
+        const text = await response.text();
+        console.error(`HTTP ${response.status}:`, text.substring(0, 200));
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         const text = await response.text();
         console.error("Resposta não é JSON:", text.substring(0, 200));
-        throw new Error(
-          "Servidor retornou uma resposta inválida. Verifique a conexão.",
-        );
+        throw new Error("Servidor retornou uma resposta inválida");
       }
 
       const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Erro na requisição");
-      }
-
       return result;
     } catch (error) {
       console.error("API Error:", error);

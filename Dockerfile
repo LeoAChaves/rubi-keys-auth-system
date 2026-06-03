@@ -20,7 +20,12 @@ RUN echo 'server { \
 
 WORKDIR /var/www/html
 
+# Copiar TODOS os arquivos
 COPY . /var/www/html/
+
+# Verificar se os arquivos foram copiados (debug)
+RUN ls -la /var/www/html/php/api/ && \
+    cat /var/www/html/php/api/register.php | head -5
 
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
