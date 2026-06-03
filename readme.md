@@ -2,6 +2,25 @@
 
 <img src="images/rubikeys.png" alt="RUBI Keys Logo" width="100" height="100">
 
+---
+
+[![Deployed on Railway](https://img.shields.io/badge/Railway-Deployed-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://rubi-keys-auth-system-production.up.railway.app/)
+[![PHP Version](https://img.shields.io/badge/PHP-7.4+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![MySQL](https://img.shields.io/badge/MySQL-5.7+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+
+## 🚀 Demo ao Vivo
+
+**Acesse o sistema em produção:** [https://rubi-keys-auth-system-production.up.railway.app/](https://rubi-keys-auth-system-production.up.railway.app/)
+
+| Página                | Link                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| 🏠 **Página Inicial** | [rubi-keys.up.railway.app](https://rubi-keys-auth-system-production.up.railway.app/) |
+| 📝 **Registro**       | `/html/register.html`                                                                |
+| 🔐 **Login**          | `/html/login.html`                                                                   |
+| 🔑 **Dashboard**      | `/html/dashboard.html` (após login)                                                  |
+
+> ⚠️ **Nota:** O Railway free tier pode colocar o app para dormir após 15 minutos sem uso. O primeiro acesso pode levar alguns segundos para reativar.
+
 ## 📋 Sobre o Projeto
 
 RUBI Keys é um sistema completo de autenticação de usuários desenvolvido com tecnologias modernas. O projeto oferece funcionalidades essenciais como registro, login, recuperação de senha e dashboard personalizado, tudo com uma interface amigável e responsiva.
@@ -12,7 +31,7 @@ RUBI Keys é um sistema completo de autenticação de usuários desenvolvido com
 - ✅ **Login seguro** com hash de senha (bcrypt)
 - ✅ **Recuperação de senha** com código de verificação por email
 - ✅ **Dashboard personalizado** após login
-- ✅ **Validação de força de senha** (apenas no registro/alteracão)
+- ✅ **Validação de força de senha** (apenas no registro/alteração)
 - ✅ **Proteção contra SQL Injection** (Prepared Statements)
 - ✅ **Sessão persistente** com localStorage
 - ✅ **Design responsivo** e moderno
@@ -43,33 +62,44 @@ RUBI Keys é um sistema completo de autenticação de usuários desenvolvido com
 ## 📁 Estrutura do Projeto
 
 ```
+
 rubi-keys-auth-system/
-├── index.html                 # Dashboard principal
-├── login.html                 # Página de login
-├── register.html              # Página de registro
-├── forgotPassword.html        # Página de recuperação
-├── changePassword.html        # Página de alteração
+├── index.html # Página inicial
+├── html/
+│ ├── login.html # Página de login
+│ ├── register.html # Página de registro
+│ ├── dashboard.html # Dashboard do usuário
+│ ├── forgotPassword.html # Página de recuperação
+│ └── changePassword.html # Página de alteração
 ├── css/
-│   ├── global.css            # Estilos globais
-│   └── buttons-style.css     # Estilos de botões
+│ ├── global.css # Estilos globais
+│ ├── buttons-style.css # Estilos de botões
+│ └── dashboard.css # Estilos do dashboard
 ├── js/
-│   ├── api.js                # Comunicação com backend
-│   ├── auth.js               # Gerenciamento de autenticação
-│   └── validation.js         # Validações de formulário
+│ ├── api.js # Comunicação com backend
+│ ├── auth.js # Gerenciamento de autenticação
+│ ├── validation.js # Validações de formulário
+│ ├── dashboard.js # Lógica do dashboard
+│ └── index.js # Lógica da página inicial
 ├── php/
-│   ├── api/
-│   │   ├── register.php      # API de registro
-│   │   ├── login.php         # API de login
-│   │   ├── forgot-password.php # API de recuperação
-│   │   ├── change-password.php # API de alteração
-│   │   └── verify-code.php   # API de verificação
-│   ├── config/
-│   │   └── database.php      # Configuração do banco
-│   └── utils/
-│       ├── response.php      # Respostas padronizadas
-│       └── email.php         # Serviço de email
-├── images/                    # Imagens do projeto
-└── database.sql              # Script do banco de dados
+│ ├── api/
+│ │ ├── register.php # API de registro
+│ │ ├── login.php # API de login
+│ │ ├── forgot-password.php # API de recuperação
+│ │ ├── change-password.php # API de alteração
+│ │ └── verify-code.php # API de verificação
+│ ├── config/
+│ │ └── database.php # Configuração do banco
+│ └── utils/
+│ ├── response.php # Respostas padronizadas
+│ └── email.php # Serviço de email
+├── images/ # Imagens do projeto
+├── database.sql # Script do banco de dados
+├── Dockerfile # Configuração Docker
+├── nginx.conf # Configuração Nginx
+├── railway.toml # Configuração Railway
+└── README.md # Documentação
+
 ```
 
 ## 🚀 Instalação e Configuração
@@ -114,10 +144,7 @@ cd rubi-keys-auth-system
 
 - Acesse o phpMyAdmin: `http://localhost/phpmyadmin`
 - Crie um novo banco de dados: `rubi_keys`
-- Importe o arquivo `database.sql`:
-  - Clique na aba "SQL"
-  - Copie o conteúdo do arquivo `database.sql`
-  - Cole e execute
+- Importe o arquivo `database.sql`
 
 #### 4. Configure a conexão com o banco
 
@@ -126,46 +153,25 @@ Edite o arquivo `php/config/database.php`:
 ```php
 private $host = "localhost";
 private $db_name = "rubi_keys";
-private $username = "root";     // Seu usuário do MySQL
-private $password = "";          // Sua senha do MySQL
+private $username = "root";
+private $password = "";
 ```
 
-#### 5. Configure o serviço de email (opcional)
-
-Para funcionamento da recuperação de senha, configure o email em `php/utils/email.php`:
-
-```php
-// Recomendado usar PHPMailer em produção
-// Exemplo com PHPMailer:
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-```
-
-**Para testes locais:**
-
-- O sistema já vem com um fallback que exibe os códigos no log de erro
-- Verifique o arquivo `php/error_log` para ver os códigos gerados
-
-#### 6. Permissões de arquivos
-
-Garanta que as pastas tenham permissões adequadas:
-
-```bash
-# Linux/Mac
-chmod -R 755 css/ js/ images/
-chmod -R 777 php/error_log
-
-# Windows (geralmente não necessário)
-```
-
-#### 7. Acesse o projeto
+#### 5. Acesse o projeto
 
 Abra o navegador e acesse:
 
 ```
-http://localhost/rubi-keys-auth-system/index.html
+http://localhost/rubi-keys-auth-system/
 ```
+
+## ☁️ Deploy no Railway
+
+### 🌍 Produção
+
+**Acesse o sistema em produção:**
+
+👉 **[https://rubi-keys-auth-system-production.up.railway.app/](https://rubi-keys-auth-system-production.up.railway.app/)**
 
 ## 💻 Uso do Sistema
 
@@ -173,7 +179,7 @@ http://localhost/rubi-keys-auth-system/index.html
 
 1. Acesse a página de registro
 2. Preencha nome, email e senha
-3. A senha deve ter pelo menos 8 caracteres, letra maiúscula, número e caracter especial.
+3. A senha deve ter pelo menos 6 caracteres
 4. Confirme a senha
 5. Clique em "Cadastrar"
 
@@ -188,9 +194,8 @@ http://localhost/rubi-keys-auth-system/index.html
 
 1. Clique em "Esqueci a senha" na página de login
 2. Insira seu email cadastrado
-3. Aguarde o código de verificação (requer configração do serviço de email )
+3. Aguarde o código de verificação
 4. Insira o código e a nova senha
-5. Confirme a nova senha
 
 ### Logout
 
@@ -201,18 +206,16 @@ http://localhost/rubi-keys-auth-system/index.html
 ### Backend
 
 - ✅ **Password Hashing**: Uso de bcrypt para hash de senhas
-- ✅ **SQL Injection Protection**: Prepared Statements em todas as queries
+- ✅ **SQL Injection Protection**: Prepared Statements
 - ✅ **XSS Protection**: Sanitização de inputs
 - ✅ **CSRF Protection**: Tokens de sessão
-- ✅ **Rate Limiting**: Proteção contra brute force (a implementar)
-- ✅ **Secure Headers**: Headers HTTP configurados
 
 ### Frontend
 
-- ✅ **Validação em tempo real**: Feedback imediato para o usuário
+- ✅ **Validação em tempo real**: Feedback imediato
 - ✅ **Sanitização de inputs**: Remoção de scripts maliciosos
 - ✅ **Proteção de rotas**: Redirecionamento automático
-- ✅ **Armazenamento seguro**: Uso de localStorage com validação
+- ✅ **Armazenamento seguro**: localStorage com validação
 
 ## 📱 Responsividade
 
@@ -227,23 +230,14 @@ O sistema é totalmente responsivo e funciona em:
 ### Testando o sistema localmente
 
 1. **Registrar um usuário:**
-
-```bash
-# Acesse register.html
-# Crie um usuário de teste
-teste@email.com / Senha*123
-```
+   - Acesse `register.html`
+   - Crie um usuário de teste: `teste@email.com` / `Senha*123`
 
 2. **Verificar no banco de dados:**
-
-```sql
-USE rubi_keys;
-SELECT * FROM users;
-```
-
-3. **Testar recuperação de senha:**
-
-- Verifique o arquivo `php/error_log` para ver o código gerado
+   ```sql
+   USE rubi_keys;
+   SELECT * FROM users;
+   ```
 
 ## 🐛 Troubleshooting
 
@@ -252,28 +246,17 @@ SELECT * FROM users;
 **1. Erro 404 - Arquivo não encontrado**
 
 - Verifique se o projeto está na pasta correta do servidor
-- Confirme os caminhos dos arquivos CSS/JS
+- Confirme os caminhos relativos dos arquivos
 
-**2. CSS não carrega**
+**2. Erro de conexão com banco no Railway**
 
-- Use caminhos relativos: `./css/global.css`
-- Limpe o cache do navegador (Ctrl+F5)
+- Verifique se as variáveis `MYSQLHOST`, `MYSQLPORT`, etc., estão configuradas
+- Certifique-se de que o MySQL foi adicionado ao projeto
 
-**3. Erro de conexão com banco**
-
-- Verifique se o MySQL está rodando
-- Confirme as credenciais no `database.php`
-- Verifique se o banco `rubi_keys` foi criado
-
-**4. FormValidator is not defined**
+**3. FormValidator is not defined**
 
 - Verifique a ordem de carregamento dos scripts
-- Certifique-se que `validation.js` está sendo carregado
-
-**5. Email não enviado**
-
-- Em desenvolvimento, os códigos são exibidos no `error_log`
-- Para produção, configure SMTP com PHPMailer
+- Certifique-se que `validation.js` está sendo carregado antes de `auth.js`
 
 ## 📦 Dependências
 
@@ -288,7 +271,6 @@ SELECT * FROM users;
   - PDO MySQL
   - JSON
   - Sessions
-  - Mail (opcional)
 
 ## 🔄 Melhorias Futuras
 
@@ -300,80 +282,30 @@ SELECT * FROM users;
 - [ ] Dashboard com gráficos e estatísticas
 - [ ] API REST documentada com Swagger
 - [ ] Testes unitários com PHPUnit
-- [ ] Docker container para deploy fácil
 
 ## 🤝 Contribuindo
 
 1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+2. Crie uma branch (`git checkout -b feature/AmazingFeature`)
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-### Padrões de código
-
-- PHP: Seguir PSR-12
-- JavaScript: Seguir Airbnb Style Guide
-- CSS: Seguir BEM methodology
-
 ## 👥 Autores
 
-**RUBI Keys Team**
+- **Leo Chaves** - _Desenvolvimento e Design_
 
-- Desenvolvimento: Leo Chaves
-- Design: Leo Chaves
-- Documentação: Leo Chaves
-
-## 🙏 Agradecimentos
-
-- [FontAwesome](https://fontawesome.com/) (emulados com emojis)
-- [Google Fonts](https://fonts.google.com/) pela fonte K2D
-- Comunidade open-source pelo suporte
-
-## 🎯 Status do Projeto
-
-✅ **Versão 1.0.0** - Lançamento estável
-
-- Todas as funcionalidades básicas implementadas
-- Testado em diferentes navegadores
-- Documentação completa
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/leo-a-chaves/)
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LeoAChaves)
 
 ---
 
 <div align="center">
   Feito com ❤️ pela equipe RUBI Keys
+  <br>
+  <a href="https://rubi-keys-auth-system-production.up.railway.app/">🌐 Acesse o sistema</a>
 </div>
 
 ---
-
-## **Arquivos complementares recomendados**
-
-### **.gitignore** (adicione na raiz do projeto)
-
-```gitignore
-# Arquivos de configuração locais
-php/config/local-config.php
-.htaccess
-
-# Logs
-error_log
-*.log
-php/error_log
-
-# Arquivos do sistema
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# IDE
-.vscode/
-.idea/
-*.sublime-*
-
-# Backup
-*.bak
-*.old
-*.sql
-```
 
 Copyright (c) 2026 RUBI Keys - Leo Chaves
