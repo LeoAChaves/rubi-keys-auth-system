@@ -3,23 +3,8 @@ FROM php:7.4-fpm
 RUN apt-get update && apt-get install -y nginx && \
     docker-php-ext-install pdo_mysql mysqli
 
-# Criar configuração do Nginx
-RUN echo 'server {
-    listen 8000;
-    root /var/www/html;
-    index index.html index.php;
-    
-    location / {
-        try_files $uri $uri/ =404;
-    }
-    
-    location ~ \.php$ {
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    }
-}' > /etc/nginx/sites-enabled/default
+# Copiar configuração do Nginx
+COPY nginx.conf /etc/nginx/sites-enabled/default
 
 WORKDIR /var/www/html
 
