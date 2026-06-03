@@ -6,6 +6,5 @@ dockerfilePath = "Dockerfile"
 startCommand = "apache2-foreground"
 
 [deploy.healthcheck]
-path = "/health.php"
+path = "/"
 port = 80
-timeout = 5
